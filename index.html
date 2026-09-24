@@ -518,55 +518,43 @@
   const wmpCloseBtn = document.getElementById('wmpCloseBtn');
   const dialogCloseBtn = document.getElementById('dialogCloseBtn');
 
-  // Realistic Windows XP Ding/Chime Sound
-  function playRealisticDing() {
+  // Realistic iOS / iPhone "Pop" Chime Synthesis
+  function playIphonePopSound() {
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
       const actx = new AudioCtx();
       const now = actx.currentTime;
 
-      const osc1 = actx.createOscillator();
-      const osc2 = actx.createOscillator();
-      const gain1 = actx.createGain();
-      const gain2 = actx.createGain();
-      const filter = actx.createBiquadFilter();
+      // Primary bubbly pop oscillator
+      const osc = actx.createOscillator();
+      const gain = actx.createGain();
 
-      osc1.type = 'sine';
-      osc1.frequency.setValueAtTime(1046.5, now); // C6
-      osc2.type = 'triangle';
-      osc2.frequency.setValueAtTime(1318.5, now); // E6
+      // Quick pitch swoop characteristic of the iOS pop/bubble effect
+      osc.type = 'sine';
+      osc.frequency.setValueAtTime(320, now);
+      osc.frequency.exponentialRampToValueAtTime(840, now + 0.035);
+      osc.frequency.exponentialRampToValueAtTime(620, now + 0.08);
 
-      filter.type = 'lowpass';
-      filter.frequency.setValueAtTime(2600, now);
+      // Snappy, rounded volume curve
+      gain.gain.setValueAtTime(0.001, now);
+      gain.gain.linearRampToValueAtTime(0.4, now + 0.012);
+      gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
 
-      gain1.gain.setValueAtTime(0.001, now);
-      gain1.gain.exponentialRampToValueAtTime(0.35, now + 0.02);
-      gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.95);
+      osc.connect(gain);
+      gain.connect(actx.destination);
 
-      gain2.gain.setValueAtTime(0.001, now);
-      gain2.gain.exponentialRampToValueAtTime(0.18, now + 0.02);
-      gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.75);
-
-      osc1.connect(gain1);
-      osc2.connect(gain2);
-      gain1.connect(filter);
-      gain2.connect(filter);
-      filter.connect(actx.destination);
-
-      osc1.start(now);
-      osc2.start(now);
-      osc1.stop(now + 1.0);
-      osc2.stop(now + 0.8);
+      osc.start(now);
+      osc.stop(now + 0.095);
     } catch (e) {
       console.warn("AudioContext error:", e);
     }
   }
 
-  // Audio trigger
-  window.addEventListener('DOMContentLoaded', () => playRealisticDing());
+  // Audio trigger on page load & click
+  window.addEventListener('DOMContentLoaded', () => playIphonePopSound());
   window.addEventListener('click', () => {
     if (!systemDialog.classList.contains('hide')) {
-      playRealisticDing();
+      playIphonePopSound();
     }
   }, { once: true });
 
@@ -599,7 +587,7 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     confettiParticles = [];
 
-    playRealisticDing();
+    playIphonePopSound();
   }
 
   // Close buttons logic
@@ -612,7 +600,7 @@
     systemDialog.style.transform = 'translate(-4px, 0)';
     setTimeout(() => systemDialog.style.transform = 'translate(4px, 0)', 80);
     setTimeout(() => systemDialog.style.transform = 'translate(0, 0)', 160);
-    playRealisticDing();
+    playIphonePopSound();
   });
 
   // Start Experience
@@ -724,7 +712,7 @@
 
       ctx.save();
       ctx.translate(p.x, p.y);
-      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.rotate((p.rot || p.rotation * Math.PI) / 180);
       ctx.fillStyle = p.color;
       ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
       ctx.restore();
