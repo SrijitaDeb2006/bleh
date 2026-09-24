@@ -518,24 +518,33 @@
   const wmpCloseBtn = document.getElementById('wmpCloseBtn');
   const dialogCloseBtn = document.getElementById('dialogCloseBtn');
 
-  // Realistic iOS / iPhone "Pop" Chime Synthesis
+  // Shared AudioContext
+  let audioCtx = null;
+  function getAudioContext() {
+    if (!audioCtx) {
+      const AudioContextClass = window.AudioContext || window.webkitAudioContext;
+      audioCtx = new AudioContextClass();
+    }
+    if (audioCtx.state === 'suspended') {
+      audioCtx.resume();
+    }
+    return audioCtx;
+  }
+
+  // Realistic iOS / iPhone "Pop" Sound for System Message
   function playIphonePopSound() {
     try {
-      const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      const actx = new AudioCtx();
+      const actx = getAudioContext();
       const now = actx.currentTime;
 
-      // Primary bubbly pop oscillator
       const osc = actx.createOscillator();
       const gain = actx.createGain();
 
-      // Quick pitch swoop characteristic of the iOS pop/bubble effect
       osc.type = 'sine';
       osc.frequency.setValueAtTime(320, now);
       osc.frequency.exponentialRampToValueAtTime(840, now + 0.035);
       osc.frequency.exponentialRampToValueAtTime(620, now + 0.08);
 
-      // Snappy, rounded volume curve
       gain.gain.setValueAtTime(0.001, now);
       gain.gain.linearRampToValueAtTime(0.4, now + 0.012);
       gain.gain.exponentialRampToValueAtTime(0.001, now + 0.09);
@@ -550,7 +559,69 @@
     }
   }
 
-  // Audio trigger on page load & click
+  // "Fah" Pop Sound Effect for the Happy Birthday Popup
+  function playFahSound() {
+    try {
+      const actx = getAudioContext();
+      const now = actx.currentTime;
+
+      // 1. Breath/wind friction formant (the "f" onset)
+      const bufferSize = Math.floor(actx.sampleRate * 0.12);
+      const noiseBuffer = actx.createBuffer(1, bufferSize, actx.sampleRate);
+      const output = noiseBuffer.getChannelData(0);
+      for (let i = 0; i < bufferSize; i++) {
+        output[i] = Math.random() * 2 - 1;
+      }
+
+      const whiteNoise = actx.createBufferSource();
+      whiteNoise.buffer = noiseBuffer;
+
+      const noiseFilter = actx.createBiquadFilter();
+      noiseFilter.type = 'bandpass';
+      noiseFilter.frequency.setValueAtTime(1400, now);
+      noiseFilter.Q.setValueAtTime(2.2, now);
+
+      const noiseGain = actx.createGain();
+      noiseGain.gain.setValueAtTime(0.001, now);
+      noiseGain.gain.linearRampToValueAtTime(0.26, now + 0.02);
+      noiseGain.gain.exponentialRampToValueAtTime(0.001, now + 0.11);
+
+      whiteNoise.connect(noiseFilter);
+      noiseFilter.connect(noiseGain);
+      noiseGain.connect(actx.destination);
+
+      whiteNoise.start(now);
+      whiteNoise.stop(now + 0.12);
+
+      // 2. Resonant vowel body (the vocal "ah" formant)
+      const vocalOsc = actx.createOscillator();
+      const vocalFilter = actx.createBiquadFilter();
+      const vocalGain = actx.createGain();
+
+      vocalOsc.type = 'triangle';
+      vocalOsc.frequency.setValueAtTime(240, now);
+      vocalOsc.frequency.exponentialRampToValueAtTime(175, now + 0.28);
+
+      vocalFilter.type = 'bandpass';
+      vocalFilter.frequency.setValueAtTime(860, now);
+      vocalFilter.Q.setValueAtTime(4.0, now);
+
+      vocalGain.gain.setValueAtTime(0.001, now + 0.015);
+      vocalGain.gain.linearRampToValueAtTime(0.38, now + 0.045);
+      vocalGain.gain.exponentialRampToValueAtTime(0.001, now + 0.3);
+
+      vocalOsc.connect(vocalFilter);
+      vocalFilter.connect(vocalGain);
+      vocalGain.connect(actx.destination);
+
+      vocalOsc.start(now + 0.015);
+      vocalOsc.stop(now + 0.32);
+    } catch (e) {
+      console.warn("Fah sound error:", e);
+    }
+  }
+
+  // Audio trigger
   window.addEventListener('DOMContentLoaded', () => playIphonePopSound());
   window.addEventListener('click', () => {
     if (!systemDialog.classList.contains('hide')) {
@@ -656,10 +727,11 @@
     desktop.classList.add('screen-quake');
     setTimeout(() => desktop.classList.remove('screen-quake'), 500);
 
-    // Pop and drop banner
+    // Pop and drop banner with Fah sound effect
     bdayBanner.classList.remove('animate-surprise');
     void bdayBanner.offsetWidth;
     bdayBanner.classList.add('animate-surprise');
+    playFahSound();
 
     // Confetti
     startConfetti(4500);
