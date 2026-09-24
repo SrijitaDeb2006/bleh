@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday!</title>
 <style>
-  /* Exact original pixel arrow cursor */
+  /* Use your uploaded cursor image */
   *, *::before, *::after {
-    cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' shape-rendering='crispEdges'><path d='M3 1h1v20H3z M4 2h1v18H4z M5 3h1v16H5z M6 4h1v14H6z M7 5h1v12H7z M8 6h1v10H8z M9 7h1v8H9z M10 8h1v6H10z M11 9h1v4H11z M12 10h1v2H12z M10 14h2v7h-2z M12 16h2v5h-2z' fill='%23ffffff'/><path d='M2 0h2v22H2z M4 21h4v2H4z M7 18h2v3H7z M9 15h3v2H9z M12 17h2v5h-2z M14 17h2v4h-2z M4 1h1v1H4z M5 2h1v1H5z M6 3h1v1H6z M7 4h1v1H7z M8 5h1v1H8z M9 6h1v1H9z M10 7h1v1H10z M11 8h1v1H11z M12 9h1v1H12z M13 10h1v1H13z M14 11h1v1H14z M15 12h2v2h-2z M14 13h1v1h-1z M13 14h1v1h-1z M12 15h1v1h-1z' fill='%23000000'/></svg>") 0 0, auto !important;
+    cursor: url("2674081025828006.jpeg") 0 0, auto !important;
     box-sizing: border-box;
   }
 
@@ -20,7 +20,7 @@
     font-family: "Tahoma", "MS Sans Serif", sans-serif;
     user-select: none;
     -webkit-user-select: none;
-    /* Bliss Wallpaper Background from your uploaded file */
+    /* Use your uploaded Bliss background image */
     background: #0055ea url("211174977272346.jpeg") center center / cover no-repeat;
   }
 
@@ -33,14 +33,14 @@
     position: relative;
   }
 
-  /* ----------------- System Message Dialog Box ----------------- */
+  /* ---------------- System Message Dialog ---------------- */
   #sysDialog {
     position: absolute;
-    width: 370px;
+    width: 380px;
     background: #ece9d8;
     border: 3px solid #0055ea;
-    border-radius: 4px;
-    box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.5);
+    border-radius: 3px;
+    box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.45);
     z-index: 50;
     transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
@@ -51,9 +51,9 @@
     pointer-events: none;
   }
 
-  .dialog-titlebar {
-    background: linear-gradient(90deg, #0058ee 0%, #3593ff 70%, #2876e2 100%);
-    color: white;
+  .dialog-title {
+    background: linear-gradient(90deg, #0a246a 0%, #a6caf0 100%);
+    color: #fff;
     font-size: 13px;
     font-weight: bold;
     padding: 4px 8px;
@@ -66,17 +66,16 @@
     background: #d93829;
     color: white;
     border: 1px solid #fff;
-    width: 17px;
-    height: 17px;
+    width: 16px;
+    height: 16px;
     line-height: 13px;
     font-size: 11px;
     text-align: center;
     border-radius: 2px;
-    font-weight: bold;
   }
 
-  .dialog-body {
-    padding: 26px 20px 22px;
+  .dialog-content {
+    padding: 28px 16px;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
     font-size: 20px;
@@ -84,14 +83,14 @@
     color: #000;
   }
 
-  .dialog-buttons {
+  .dialog-actions {
     display: flex;
     justify-content: center;
-    gap: 24px;
+    gap: 20px;
     padding-bottom: 22px;
   }
 
-  .retro-btn {
+  .win-btn {
     background: #ece9d8;
     font-family: 'Courier New', Courier, monospace;
     font-size: 15px;
@@ -104,279 +103,123 @@
     transition: transform 0.08s ease, box-shadow 0.08s ease;
   }
 
-  .retro-btn:hover {
+  .win-btn:hover {
     background: #f5f4ec;
     transform: translateY(-2px);
     box-shadow: 2px 3px 0px #000000;
   }
 
-  .retro-btn:active, .retro-btn.clicked {
+  .win-btn:active, .win-btn.pressed {
     border-color: #808080 #ffffff #ffffff #808080;
     transform: translateY(2px) scale(0.96);
     box-shadow: 0px 0px 0px #000000;
   }
 
-  /* ----------------- Windows Media Player (Original Visuals) ----------------- */
-  #wmpWindow {
-    width: 600px;
-    max-width: 94vw;
-    background: #0f2c59;
-    border: 3px solid #1656b8;
-    border-radius: 8px 8px 4px 4px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
-    overflow: hidden;
+  /* ---------------- Windows Media Player Frame ---------------- */
+  #wmpContainer {
     position: relative;
-    z-index: 20;
+    width: 580px;
+    max-width: 92vw;
     display: none;
     opacity: 0;
-    transform: scale(0.92);
+    transform: scale(0.94);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 20;
   }
 
-  #wmpWindow.show {
+  #wmpContainer.active {
     display: block;
     opacity: 1;
     transform: scale(1);
   }
 
-  .wmp-titlebar {
-    background: linear-gradient(180deg, #0947ba 0%, #195ed8 45%, #0d3da5 50%, #1555c8 100%);
-    color: white;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 6px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    border-bottom: 1px solid #336ad6;
-  }
-
-  .wmp-title-left {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    text-shadow: 1px 1px 2px #000;
-  }
-
-  .wmp-title-logo {
-    width: 17px;
-    height: 17px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #ff9800, #e65100, #3e2723);
-    border: 1px solid #fff;
-  }
-
-  .wmp-controls-icons span {
-    display: inline-block;
-    width: 17px;
-    height: 17px;
-    line-height: 15px;
-    text-align: center;
-    margin-left: 3px;
-    background: linear-gradient(180deg, #3784ff 0%, #1653c0 100%);
-    border: 1px solid #ffffffa1;
-    border-radius: 2px;
-    font-size: 10px;
-  }
-
-  .wmp-controls-icons span.close-btn {
-    background: #d93829;
-    cursor: pointer !important;
-    font-weight: bold;
-  }
-
-  .wmp-controls-icons span.close-btn:hover {
-    background: #ff4433;
-  }
-
-  .wmp-menu {
-    background: #ece9d8;
-    color: #000;
-    font-size: 12px;
-    padding: 3px 8px;
-    display: flex;
-    gap: 14px;
-    border-bottom: 1px solid #a0a0a0;
-  }
-
-  .wmp-menu span {
-    text-decoration: underline;
-  }
-
-  .wmp-screen {
-    position: relative;
+  /* Your uploaded WMP skin image */
+  .wmp-frame-img {
     width: 100%;
-    aspect-ratio: 4/3;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* Video positioned inside the white screen area of the WMP frame */
+  .wmp-screen-slot {
+    position: absolute;
+    top: 20.5%;
+    left: 2.2%;
+    width: 95.6%;
+    height: 60.5%;
     background: #000;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
-    overflow: hidden;
   }
 
   video {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #000;
   }
 
-  /* Pause Indicator Overlay */
-  #pauseBadge {
-    position: absolute;
-    top: 12px;
-    left: 12px;
-    background: rgba(0, 0, 0, 0.75);
-    border: 1px solid #4a8bf5;
-    color: #ffd700;
-    font-size: 12px;
-    padding: 3px 8px;
-    border-radius: 3px;
-    font-weight: bold;
-    pointer-events: none;
-    display: none;
-    z-index: 30;
-  }
-
-  #pauseBadge.visible {
-    display: block;
-  }
-
-  /* Retro Replay Button */
-  #replayBtn {
+  /* Play Again overlay button */
+  #playAgain {
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%) scale(0.85);
-    background: #ece9d8;
-    border: 3px solid;
-    border-color: #ffffff #808080 #808080 #ffffff;
-    box-shadow: 2px 3px 14px rgba(0,0,0,0.75);
-    padding: 10px 24px;
+    transform: translate(-50%, -50%) scale(0.8);
+    background: #ffffff;
+    border: 3px solid #000;
+    padding: 10px 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
     display: none;
-    align-items: center;
-    gap: 10px;
-    font-family: 'Courier New', Courier, monospace;
-    font-size: 18px;
-    font-weight: bold;
-    color: #000;
     opacity: 0;
-    transition: opacity 0.25s ease, transform 0.15s ease, background 0.15s ease;
+    transition: opacity 0.25s ease, transform 0.15s ease;
     z-index: 40;
   }
 
-  #replayBtn.visible {
+  #playAgain.visible {
     display: flex;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
 
-  #replayBtn:hover {
-    transform: translate(-50%, -50%) scale(1.08);
-    background: #f7f6f0;
+  #playAgain:hover {
+    transform: translate(-50%, -50%) scale(1.1);
   }
 
-  #replayBtn:active {
-    border-color: #808080 #ffffff #ffffff #808080;
-    transform: translate(-50%, -50%) scale(0.96);
-  }
-
-  .replay-icon {
-    font-size: 22px;
-    line-height: 1;
-    transform: rotate(-45deg);
-    display: inline-block;
-  }
-
-  .wmp-status {
-    background: #0a1b38;
-    color: #79a6d2;
-    padding: 3px 10px;
-    font-size: 11px;
-    border-top: 1px solid #1c3c74;
-  }
-
-  .wmp-footer {
-    background: linear-gradient(180deg, #2a5eb2 0%, #153c82 50%, #0d285c 100%);
-    padding: 8px 12px 10px;
-    border-top: 1px solid #5b8be0;
-  }
-
-  .wmp-timeline {
-    height: 6px;
-    background: #091733;
-    border-radius: 3px;
-    border: 1px solid #507cc0;
-    position: relative;
-    margin-bottom: 8px;
-  }
-
-  .wmp-progress {
-    height: 100%;
-    width: 0%;
-    background: linear-gradient(90deg, #3bb300, #7ceb3d);
-    border-radius: 3px;
-  }
-
-  .wmp-buttons-bar {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .round-btn {
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #468bfb, #1245a8);
-    border: 1.5px solid #a3c7ff;
-    color: white;
-    font-size: 12px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
-  .round-btn.main-play {
+  .pixel-icon {
     width: 36px;
     height: 36px;
-    font-size: 16px;
+    display: block;
   }
 
-  /* ----------------- Falling "Happy Birthday" ----------------- */
-  #bdayBanner {
+  /* ---------------- Falling Birthday Text ---------------- */
+  #bdayText {
     position: absolute;
     top: -200px;
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 64px;
+    font-size: 58px;
     font-weight: 900;
     color: #ffd700;
-    text-shadow: 
-      3px 3px 0px #d92500,
-      -3px -3px 0px #0058ee,
-      4px 6px 12px rgba(0,0,0,0.85);
-    letter-spacing: 2px;
+    text-shadow: 3px 3px 0px #e60000, -3px -3px 0px #0058ee, 4px 6px 14px rgba(0,0,0,0.8);
     white-space: nowrap;
     z-index: 100;
     pointer-events: none;
   }
 
-  @keyframes popAndFall {
-    0% { top: 10%; transform: translateX(-50%) scale(0.2); opacity: 0; }
-    20% { top: 35%; transform: translateX(-50%) scale(1.15) rotate(-3deg); opacity: 1; }
+  @keyframes dropAndFall {
+    0% { top: 8%; transform: translateX(-50%) scale(0.2); opacity: 0; }
+    25% { top: 38%; transform: translateX(-50%) scale(1.15) rotate(-3deg); opacity: 1; }
     35% { top: 38%; transform: translateX(-50%) scale(1) rotate(2deg); opacity: 1; }
-    70% { top: 48%; transform: translateX(-50%) scale(1.05) rotate(0deg); opacity: 1; }
-    100% { top: 120vh; transform: translateX(-50%) scale(0.9) rotate(8deg); opacity: 0; }
+    65% { top: 46%; transform: translateX(-50%) scale(1.05) rotate(0deg); opacity: 1; }
+    100% { top: 115vh; transform: translateX(-50%) scale(0.9) rotate(8deg); opacity: 0; }
   }
 
-  .animate-fall {
-    animation: popAndFall 3.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  .animate-drop {
+    animation: dropAndFall 4s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
   }
 
-  /* Confetti Canvas */
   #confettiCanvas {
     position: fixed;
     top: 0;
@@ -393,239 +236,126 @@
 <canvas id="confettiCanvas"></canvas>
 
 <div id="stage">
-  <!-- System Message Modal -->
+  <!-- System Message -->
   <div id="sysDialog">
-    <div class="dialog-titlebar">
+    <div class="dialog-title">
       <span>System message</span>
       <div class="dialog-close">✕</div>
     </div>
-    <div class="dialog-body">
+    <div class="dialog-content">
       Is it your birthday?
     </div>
-    <div class="dialog-buttons">
-      <button class="retro-btn" id="btnYes">Yes</button>
-      <button class="retro-btn" id="btnHellYes">Hell yes</button>
+    <div class="dialog-actions">
+      <button class="win-btn" id="btn1">Yes</button>
+      <button class="win-btn" id="btn2">Hell yes</button>
     </div>
   </div>
 
-  <!-- Windows Media Player Window -->
-  <div id="wmpWindow">
-    <div class="wmp-titlebar">
-      <div class="wmp-title-left">
-        <div class="wmp-title-logo"></div>
-        <span>Windows Media Player</span>
-      </div>
-      <div class="wmp-controls-icons">
-        <span>_</span><span>□</span><span class="close-btn" id="wmpCloseBtn" title="Close and return">✕</span>
-      </div>
-    </div>
-
-    <div class="wmp-menu">
-      <span>File</span>
-      <span>View</span>
-      <span>Play</span>
-      <span>Tools</span>
-      <span>Help</span>
-    </div>
-
-    <div class="wmp-screen">
-      <div id="pauseBadge">❚❚ PAUSED</div>
-      <video id="birthdayVideo" src="Video Project 239.mp4" playsinline preload="auto"></video>
-
-      <!-- Replay Button Overlay -->
-      <div id="replayBtn" title="Replay">
-        <span class="replay-icon">↺</span>
-        <span>Replay</span>
-      </div>
-    </div>
-
-    <div class="wmp-status" id="wmpStatus">Ready</div>
-
-    <div class="wmp-footer">
-      <div class="wmp-timeline">
-        <div class="wmp-progress" id="wmpProgress"></div>
-      </div>
-      <div class="wmp-buttons-bar">
-        <div class="round-btn">⏮</div>
-        <div class="round-btn main-play" id="wmpPlayPause">▶</div>
-        <div class="round-btn">⏭</div>
-        <div class="round-btn">■</div>
+  <!-- Windows Media Player Container with your uploaded frame -->
+  <div id="wmpContainer">
+    <img class="wmp-frame-img" src="83316661855639862-Photoroom.png" alt="WMP Frame">
+    <div class="wmp-screen-slot">
+      <video id="vid" src="Video Project 239.mp4" playsinline preload="auto"></video>
+      <div id="playAgain" title="Play Again">
+        <img src="play.jpg" class="pixel-icon" alt="Play Again">
       </div>
     </div>
   </div>
 
-  <div id="bdayBanner">HAPPY BIRTHDAY! 🎉</div>
+  <div id="bdayText">HAPPY BIRTHDAY! 🎂</div>
 </div>
 
 <script>
+  const vid = document.getElementById('vid');
   const sysDialog = document.getElementById('sysDialog');
-  const btnYes = document.getElementById('btnYes');
-  const btnHellYes = document.getElementById('btnHellYes');
-  const wmpWindow = document.getElementById('wmpWindow');
-  const video = document.getElementById('birthdayVideo');
-  const wmpStatus = document.getElementById('wmpStatus');
-  const wmpProgress = document.getElementById('wmpProgress');
-  const replayBtn = document.getElementById('replayBtn');
-  const bdayBanner = document.getElementById('bdayBanner');
-  const wmpCloseBtn = document.getElementById('wmpCloseBtn');
-  const pauseBadge = document.getElementById('pauseBadge');
-  const wmpPlayPause = document.getElementById('wmpPlayPause');
+  const wmpContainer = document.getElementById('wmpContainer');
+  const btn1 = document.getElementById('btn1');
+  const btn2 = document.getElementById('btn2');
+  const playAgain = document.getElementById('playAgain');
+  const bdayText = document.getElementById('bdayText');
 
-  // Confetti Canvas setup
+  // Confetti setup
   const canvas = document.getElementById('confettiCanvas');
   const ctx = canvas.getContext('2d');
-  function resizeCanvas() {
-    canvas.width = window.innerWidth;
-    canvas.height = window.innerHeight;
-  }
-  window.addEventListener('resize', resizeCanvas);
-  resizeCanvas();
+  function resize() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
+  window.addEventListener('resize', resize);
+  resize();
 
-  // Reset entire card back to system dialog
-  function resetToStart() {
-    video.pause();
-    video.currentTime = 0;
-    pauseBadge.classList.remove('visible');
-    replayBtn.classList.remove('visible');
-    bdayBanner.classList.remove('animate-fall');
-    wmpProgress.style.width = '0%';
-    wmpStatus.innerText = 'Ready';
-    wmpWindow.classList.remove('show');
-    btnYes.classList.remove('clicked');
-    btnHellYes.classList.remove('clicked');
-    sysDialog.classList.remove('hidden');
-    stopConfetti();
-  }
-
-  // Clicking "X" cuts video and goes back to dialog
-  wmpCloseBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    resetToStart();
-  });
-
-  // Start Experience
-  function triggerStart(buttonElement) {
-    buttonElement.classList.add('clicked');
+  function triggerOpen(btn) {
+    btn.classList.add('pressed');
     setTimeout(() => {
       sysDialog.classList.add('hidden');
-      wmpWindow.classList.add('show');
-      wmpStatus.innerText = 'Playing';
-      video.currentTime = 0;
-      video.play().catch(e => console.warn('Playback error:', e));
-    }, 280);
+      wmpContainer.classList.add('active');
+      vid.play().catch(e => console.warn("Playback error:", e));
+    }, 250);
   }
 
-  btnYes.addEventListener('click', () => triggerStart(btnYes));
-  btnHellYes.addEventListener('click', () => triggerStart(btnHellYes));
+  btn1.addEventListener('click', () => triggerOpen(btn1));
+  btn2.addEventListener('click', () => triggerOpen(btn2));
 
-  // Toggle Pause/Play when clicking the video screen or the footer play button
-  function togglePlayPause() {
-    if (video.ended) return;
-    if (video.paused) {
-      video.play();
-      pauseBadge.classList.remove('visible');
-      wmpStatus.innerText = 'Playing';
-      wmpPlayPause.innerText = '❚❚';
-    } else {
-      video.pause();
-      pauseBadge.classList.add('visible');
-      wmpStatus.innerText = 'Paused';
-      wmpPlayPause.innerText = '▶';
-    }
-  }
-
-  video.addEventListener('click', togglePlayPause);
-  wmpPlayPause.addEventListener('click', togglePlayPause);
-
-  // Update Progress Timeline
-  video.addEventListener('timeupdate', () => {
-    if (video.duration) {
-      const percentage = (video.currentTime / video.duration) * 100;
-      wmpProgress.style.width = percentage + '%';
-    }
-  });
-
-  // Video End Sequence
-  video.addEventListener('ended', () => {
-    wmpStatus.innerText = 'Finished';
-    pauseBadge.classList.remove('visible');
+  vid.addEventListener('ended', () => {
     startConfetti();
-
-    bdayBanner.classList.remove('animate-fall');
-    void bdayBanner.offsetWidth;
-    bdayBanner.classList.add('animate-fall');
+    
+    bdayText.classList.remove('animate-drop');
+    void bdayText.offsetWidth;
+    bdayText.classList.add('animate-drop');
 
     setTimeout(() => {
-      replayBtn.classList.add('visible');
+      playAgain.classList.add('visible');
     }, 1500);
   });
 
-  // Replay Button restarts the video
-  replayBtn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    replayBtn.classList.remove('visible');
-    bdayBanner.classList.remove('animate-fall');
-    stopConfetti();
-    wmpStatus.innerText = 'Playing';
-    video.currentTime = 0;
-    video.play();
+  playAgain.addEventListener('click', () => {
+    playAgain.classList.remove('visible');
+    bdayText.classList.remove('animate-drop');
+    wmpContainer.classList.remove('active');
+
+    vid.pause();
+    vid.currentTime = 0;
+
+    btn1.classList.remove('pressed');
+    btn2.classList.remove('pressed');
+    sysDialog.classList.remove('hidden');
   });
 
-  // Confetti Physics Engine
-  let confettiParticles = [];
-  let confettiAnim = null;
-
+  // Confetti engine
+  let particles = [];
   function startConfetti() {
-    const colors = ['#ff2a2a', '#ffd700', '#00e5ff', '#ff00ea', '#44ff44', '#ffffff', '#ff9100'];
-    confettiParticles = [];
-    for (let i = 0; i < 180; i++) {
-      confettiParticles.push({
+    const cols = ['#ff2a2a', '#ffd700', '#00e5ff', '#ff00ea', '#44ff44', '#ffffff', '#ff9100'];
+    particles = [];
+    for (let i = 0; i < 160; i++) {
+      particles.push({
         x: Math.random() * canvas.width,
-        y: Math.random() * -canvas.height * 0.7,
-        size: Math.random() * 9 + 5,
-        speedX: Math.random() * 4 - 2,
-        speedY: Math.random() * 4 + 3,
-        rotation: Math.random() * 360,
-        rotationSpeed: Math.random() * 10 - 5,
-        color: colors[Math.floor(Math.random() * colors.length)]
+        y: Math.random() * -canvas.height * 0.6,
+        s: Math.random() * 8 + 6,
+        vx: Math.random() * 4 - 2,
+        vy: Math.random() * 4 + 3,
+        rot: Math.random() * 360,
+        vr: Math.random() * 8 - 4,
+        c: cols[Math.floor(Math.random() * cols.length)]
       });
     }
-    if (confettiAnim) cancelAnimationFrame(confettiAnim);
     renderConfetti();
-  }
-
-  function stopConfetti() {
-    if (confettiAnim) cancelAnimationFrame(confettiAnim);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    confettiParticles = [];
   }
 
   function renderConfetti() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-    let alive = false;
-
-    for (let p of confettiParticles) {
-      p.y += p.speedY;
-      p.x += Math.sin(p.y * 0.02) * 2 + p.speedX;
-      p.rotation += p.rotationSpeed;
-
-      if (p.y < canvas.height + 20) {
-        alive = true;
-      }
+    let active = false;
+    for (let p of particles) {
+      p.y += p.vy;
+      p.x += Math.sin(p.y * 0.02) * 2 + p.vx;
+      p.rot += p.vr;
+      if (p.y < canvas.height + 20) active = true;
 
       ctx.save();
       ctx.translate(p.x, p.y);
-      ctx.rotate((p.rotation * Math.PI) / 180);
-      ctx.fillStyle = p.color;
-      ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
+      ctx.rotate((p.rot * Math.PI) / 180);
+      ctx.fillStyle = p.c;
+      ctx.fillRect(-p.s / 2, -p.s / 2, p.s, p.s * 0.6);
       ctx.restore();
     }
-
-    if (alive) {
-      confettiAnim = requestAnimationFrame(renderConfetti);
-    } else {
-      stopConfetti();
-    }
+    if (active) requestAnimationFrame(renderConfetti);
+    else ctx.clearRect(0, 0, canvas.width, canvas.height);
   }
 </script>
 </body>
