@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday!</title>
 <style>
-  /* Custom retro pixel arrow pointer */
+  /* Use your uploaded cursor image */
   *, *::before, *::after {
-    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'%3E%3Cpath d='M2 0v22l5-5 4 8 3-1-4-8h6L2 0z' fill='%23ffffff' stroke='%23000000' stroke-width='1.5' stroke-linejoin='miter'/%3E%3C/svg%3E") 0 0, auto !important;
+    cursor: url("2674081025828006.jpeg") 0 0, auto !important;
     box-sizing: border-box;
   }
 
@@ -20,9 +20,8 @@
     font-family: "Tahoma", "MS Sans Serif", sans-serif;
     user-select: none;
     -webkit-user-select: none;
-    /* Clean fallback Windows XP Bliss gradient */
-    background: linear-gradient(180deg, #1b73e8 0%, #68b4f7 50%, #7db939 50%, #468a15 100%);
-    background-repeat: no-repeat;
+    /* Use your uploaded Bliss background image */
+    background: #0055ea url("211174977272346.jpeg") center center / cover no-repeat;
   }
 
   #stage {
@@ -116,59 +115,40 @@
     box-shadow: 0px 0px 0px #000000;
   }
 
-  /* ---------------- Windows Media Player ---------------- */
-  #wmpPlayer {
-    width: 620px;
-    max-width: 92vw;
-    background: #0f2c59;
-    border: 3px solid #1656b8;
-    border-radius: 8px 8px 4px 4px;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
-    overflow: hidden;
+  /* ---------------- Windows Media Player Frame ---------------- */
+  #wmpContainer {
     position: relative;
-    z-index: 10;
+    width: 580px;
+    max-width: 92vw;
     display: none;
     opacity: 0;
     transform: scale(0.94);
     transition: opacity 0.3s ease, transform 0.3s ease;
+    z-index: 20;
   }
 
-  #wmpPlayer.active {
+  #wmpContainer.active {
     display: block;
     opacity: 1;
     transform: scale(1);
   }
 
-  .wmp-header {
-    background: linear-gradient(180deg, #0947ba 0%, #195ed8 45%, #0d3da5 50%, #1555c8 100%);
-    color: white;
-    font-size: 13px;
-    font-weight: bold;
-    padding: 6px 10px;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-
-  .wmp-menu {
-    background: #ece9d8;
-    color: #000;
-    font-size: 12px;
-    padding: 4px 8px;
-    display: flex;
-    gap: 14px;
-    border-bottom: 1px solid #a0a0a0;
-  }
-
-  .wmp-menu span {
-    text-decoration: underline;
-  }
-
-  .wmp-viewport {
-    position: relative;
+  /* Your uploaded WMP skin image */
+  .wmp-frame-img {
     width: 100%;
-    aspect-ratio: 4/3;
+    display: block;
+    pointer-events: none;
+  }
+
+  /* Video positioned inside the white screen area of the WMP frame */
+  .wmp-screen-slot {
+    position: absolute;
+    top: 20.5%;
+    left: 2.2%;
+    width: 95.6%;
+    height: 60.5%;
     background: #000;
+    overflow: hidden;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -178,19 +158,18 @@
     width: 100%;
     height: 100%;
     object-fit: contain;
-    background: #000;
   }
 
-  /* Pixelated Play Again Button */
+  /* Play Again overlay button */
   #playAgain {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0.8);
-    background: rgba(255, 255, 255, 0.95);
-    border: 4px solid #000;
-    padding: 16px 24px;
-    box-shadow: 0 0 0 3px #fff, 0 8px 24px rgba(0,0,0,0.6);
+    background: #ffffff;
+    border: 3px solid #000;
+    padding: 10px 14px;
+    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
     display: none;
     opacity: 0;
     transition: opacity 0.25s ease, transform 0.15s ease;
@@ -205,66 +184,12 @@
 
   #playAgain:hover {
     transform: translate(-50%, -50%) scale(1.1);
-    background: #ffffff;
   }
 
-  #playAgain:active {
-    transform: translate(-50%, -50%) scale(0.95);
-  }
-
-  .pixel-play-shape {
-    width: 44px;
-    height: 44px;
-    background-color: #111;
-    clip-path: polygon(0 0, 100% 50%, 0 100%);
-  }
-
-  .wmp-status {
-    background: #0a1b38;
-    color: #79a6d2;
-    padding: 3px 10px;
-    font-size: 11px;
-    border-top: 1px solid #1c3c74;
-  }
-
-  .wmp-controls {
-    background: linear-gradient(180deg, #2a5eb2 0%, #153c82 50%, #0d285c 100%);
-    padding: 8px 12px 10px;
-    border-top: 1px solid #5b8be0;
-  }
-
-  .wmp-scrub {
-    height: 6px;
-    background: #091733;
-    border-radius: 3px;
-    border: 1px solid #507cc0;
-    margin-bottom: 8px;
-  }
-
-  .wmp-fill {
-    height: 100%;
-    width: 0%;
-    background: #3bb300;
-    border-radius: 3px;
-  }
-
-  .wmp-btns {
-    display: flex;
-    justify-content: center;
-    gap: 12px;
-  }
-
-  .round-btn {
-    width: 26px;
-    height: 26px;
-    border-radius: 50%;
-    background: radial-gradient(circle at 35% 35%, #468bfb, #1245a8);
-    border: 1.5px solid #a3c7ff;
-    color: white;
-    font-size: 11px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  .pixel-icon {
+    width: 36px;
+    height: 36px;
+    display: block;
   }
 
   /* ---------------- Falling Birthday Text ---------------- */
@@ -274,7 +199,7 @@
     left: 50%;
     transform: translateX(-50%);
     font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 60px;
+    font-size: 58px;
     font-weight: 900;
     color: #ffd700;
     text-shadow: 3px 3px 0px #e60000, -3px -3px 0px #0058ee, 4px 6px 14px rgba(0,0,0,0.8);
@@ -326,34 +251,13 @@
     </div>
   </div>
 
-  <!-- Windows Media Player -->
-  <div id="wmpPlayer">
-    <div class="wmp-header">
-      <span>Windows Media Player</span>
-      <div style="font-size:11px">_ □ ✕</div>
-    </div>
-    <div class="wmp-menu">
-      <span>File</span><span>View</span><span>Play</span><span>Tools</span><span>Help</span>
-    </div>
-
-    <div class="wmp-viewport">
-      <!-- Direct relative video source -->
-      <video id="vid" src="Video%20Project%20239.mp4" playsinline preload="auto"></video>
+  <!-- Windows Media Player Container with your uploaded frame -->
+  <div id="wmpContainer">
+    <img class="wmp-frame-img" src="83316661855639862-Photoroom.png" alt="WMP Frame">
+    <div class="wmp-screen-slot">
+      <video id="vid" src="Video Project 239.mp4" playsinline preload="auto"></video>
       <div id="playAgain" title="Play Again">
-        <div class="pixel-play-shape"></div>
-      </div>
-    </div>
-
-    <div class="wmp-status" id="statusTxt">Ready</div>
-    <div class="wmp-controls">
-      <div class="wmp-scrub">
-        <div class="wmp-fill" id="progressFill"></div>
-      </div>
-      <div class="wmp-btns">
-        <div class="round-btn">⏮</div>
-        <div class="round-btn" style="width:32px;height:32px;font-size:14px">▶</div>
-        <div class="round-btn">⏭</div>
-        <div class="round-btn">■</div>
+        <img src="play.jpg" class="pixel-icon" alt="Play Again">
       </div>
     </div>
   </div>
@@ -364,13 +268,11 @@
 <script>
   const vid = document.getElementById('vid');
   const sysDialog = document.getElementById('sysDialog');
-  const wmpPlayer = document.getElementById('wmpPlayer');
+  const wmpContainer = document.getElementById('wmpContainer');
   const btn1 = document.getElementById('btn1');
   const btn2 = document.getElementById('btn2');
   const playAgain = document.getElementById('playAgain');
   const bdayText = document.getElementById('bdayText');
-  const statusTxt = document.getElementById('statusTxt');
-  const progressFill = document.getElementById('progressFill');
 
   // Confetti setup
   const canvas = document.getElementById('confettiCanvas');
@@ -383,23 +285,15 @@
     btn.classList.add('pressed');
     setTimeout(() => {
       sysDialog.classList.add('hidden');
-      wmpPlayer.classList.add('active');
-      statusTxt.innerText = 'Playing';
-      vid.play().catch(e => console.warn("Playback blocked:", e));
+      wmpContainer.classList.add('active');
+      vid.play().catch(e => console.warn("Playback error:", e));
     }, 250);
   }
 
   btn1.addEventListener('click', () => triggerOpen(btn1));
   btn2.addEventListener('click', () => triggerOpen(btn2));
 
-  vid.addEventListener('timeupdate', () => {
-    if (vid.duration) {
-      progressFill.style.width = ((vid.currentTime / vid.duration) * 100) + '%';
-    }
-  });
-
   vid.addEventListener('ended', () => {
-    statusTxt.innerText = 'Finished';
     startConfetti();
     
     bdayText.classList.remove('animate-drop');
@@ -408,15 +302,13 @@
 
     setTimeout(() => {
       playAgain.classList.add('visible');
-    }, 1600);
+    }, 1500);
   });
 
   playAgain.addEventListener('click', () => {
     playAgain.classList.remove('visible');
     bdayText.classList.remove('animate-drop');
-    progressFill.style.width = '0%';
-    statusTxt.innerText = 'Ready';
-    wmpPlayer.classList.remove('active');
+    wmpContainer.classList.remove('active');
 
     vid.pause();
     vid.currentTime = 0;
@@ -426,12 +318,12 @@
     sysDialog.classList.remove('hidden');
   });
 
-  // Confetti Engine
+  // Confetti engine
   let particles = [];
   function startConfetti() {
     const cols = ['#ff2a2a', '#ffd700', '#00e5ff', '#ff00ea', '#44ff44', '#ffffff', '#ff9100'];
     particles = [];
-    for (let i = 0; i < 180; i++) {
+    for (let i = 0; i < 160; i++) {
       particles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * -canvas.height * 0.6,
