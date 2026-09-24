@@ -36,11 +36,11 @@
   /* ----------------- System Message Dialog Box ----------------- */
   #sysDialog {
     position: absolute;
-    width: 380px;
+    width: 400px;
     background: #ece9d8;
     border: 3px solid #0055ea;
-    border-radius: 3px;
-    box-shadow: 4px 6px 18px rgba(0, 0, 0, 0.45);
+    border-radius: 4px;
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.55);
     z-index: 50;
     transition: opacity 0.25s ease, transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275);
   }
@@ -81,27 +81,28 @@
   }
 
   .dialog-content {
-    padding: 30px 16px;
+    padding: 34px 16px 26px;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 21px;
+    font-size: 22px;
     font-weight: bold;
     color: #000;
+    letter-spacing: 0.5px;
   }
 
   .dialog-actions {
     display: flex;
     justify-content: center;
-    gap: 22px;
-    padding-bottom: 24px;
+    gap: 24px;
+    padding-bottom: 26px;
   }
 
   .win-btn {
     background: #ece9d8;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 15px;
+    font-size: 16px;
     font-weight: bold;
-    padding: 6px 22px;
+    padding: 7px 24px;
     border: 2px solid;
     border-color: #ffffff #808080 #808080 #ffffff;
     box-shadow: 1px 1px 0px #000000;
@@ -121,12 +122,12 @@
     box-shadow: 0px 0px 0px #000000;
   }
 
-  /* ----------------- Video Player Container ----------------- */
+  /* ----------------- Video Player Window ----------------- */
   #playerContainer {
     position: relative;
     width: 600px;
     max-width: 92vw;
-    box-shadow: 0 16px 40px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.7);
     border-radius: 6px;
     overflow: hidden;
     background: #000;
@@ -143,7 +144,7 @@
     transform: scale(1);
   }
 
-  /* Top Right "X" Close Button over the player window */
+  /* Top Right "X" Close Button */
   .player-close-x {
     position: absolute;
     top: 6px;
@@ -178,7 +179,7 @@
     cursor: pointer !important;
   }
 
-  /* Pause Indicator Overlay */
+  /* Pause Badge Overlay */
   #pauseBadge {
     position: absolute;
     top: 14px;
@@ -199,7 +200,7 @@
     display: block;
   }
 
-  /* ----------------- Replay Button Overlay ----------------- */
+  /* ----------------- Retro Replay Button ----------------- */
   #replayBtn {
     position: absolute;
     top: 50%;
@@ -208,13 +209,13 @@
     background: #ece9d8;
     border: 3px solid;
     border-color: #ffffff #808080 #808080 #ffffff;
-    box-shadow: 2px 3px 12px rgba(0,0,0,0.7);
-    padding: 10px 22px;
+    box-shadow: 2px 3px 14px rgba(0,0,0,0.75);
+    padding: 10px 24px;
     display: none;
     align-items: center;
     gap: 10px;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 17px;
+    font-size: 18px;
     font-weight: bold;
     color: #000;
     opacity: 0;
@@ -291,7 +292,7 @@
 <canvas id="confettiCanvas"></canvas>
 
 <div id="stage">
-  <!-- System Message -->
+  <!-- Solid System Message Dialog -->
   <div id="sysDialog">
     <div class="dialog-title">
       <span>System message</span>
@@ -306,7 +307,7 @@
     </div>
   </div>
 
-  <!-- Windows Media Player Video Window -->
+  <!-- Video Window -->
   <div id="playerContainer">
     <!-- Clickable "X" Button to close and return to system message -->
     <div class="player-close-x" id="playerCloseX" title="Exit & Return">✕</div>
@@ -360,14 +361,14 @@
     stopConfetti();
   }
 
-  // Clicking the dialog "X" resets or shakes dialog
+  // Dialog "X" button
   dialogCloseBtn.addEventListener('click', () => {
     sysDialog.style.transform = 'translate(-4px, 0)';
     setTimeout(() => sysDialog.style.transform = 'translate(4px, 0)', 80);
     setTimeout(() => sysDialog.style.transform = 'translate(0, 0)', 160);
   });
 
-  // Clicking the player "X" closes player and returns to opening screen
+  // Player "X" button resets to dialog
   playerCloseX.addEventListener('click', (e) => {
     e.stopPropagation();
     resetToBeginning();
