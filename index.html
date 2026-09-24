@@ -20,7 +20,8 @@
     font-family: "Tahoma", "MS Sans Serif", sans-serif;
     user-select: none;
     -webkit-user-select: none;
-    background: #0055ea url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='1920' height='1080' viewBox='0 0 1920 1080'><defs><linearGradient id='sky' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%231976d2'/><stop offset='60%' stop-color='%2364b5f6'/><stop offset='100%' stop-color='%23bbdefb'/></linearGradient><linearGradient id='hill' x1='0' y1='0' x2='0' y2='1'><stop offset='0%' stop-color='%23689f38'/><stop offset='30%' stop-color='%234caf50'/><stop offset='100%' stop-color='%232e7d32'/></linearGradient></defs><rect width='1920' height='1080' fill='url(%23sky)'/><ellipse cx='400' cy='300' rx='280' ry='70' fill='%23ffffff' opacity='0.7'/><ellipse cx='480' cy='280' rx='180' ry='60' fill='%23ffffff' opacity='0.85'/><ellipse cx='1300' cy='220' rx='320' ry='80' fill='%23ffffff' opacity='0.6'/><ellipse cx='1400' cy='190' rx='200' ry='65' fill='%23ffffff' opacity='0.75'/><path d='M-100 800 Q 400 450 1100 680 T 2100 620 L 2100 1200 L -100 1200 Z' fill='url(%23hill)'/><path d='M-100 880 Q 700 580 1500 780 T 2100 720 L 2100 1200 L -100 1200 Z' fill='%23388e3c' opacity='0.6'/></svg>") center center / cover no-repeat;
+    /* Bliss Wallpaper Background */
+    background: #0055ea url("211174977272346.jpeg") center center / cover no-repeat;
   }
 
   /* Retro Overlay / Windows Container */
@@ -31,6 +32,18 @@
     align-items: center;
     justify-content: center;
     position: relative;
+  }
+
+  /* Screen shake effect on surprising pop */
+  .screen-quake {
+    animation: quake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
+  }
+
+  @keyframes quake {
+    10%, 90% { transform: translate3d(-3px, 0, 0); }
+    20%, 80% { transform: translate3d(4px, -2px, 0); }
+    30%, 50%, 70% { transform: translate3d(-6px, 3px, 0); }
+    40%, 60% { transform: translate3d(6px, -3px, 0); }
   }
 
   /* ----------------- System Message Dialog Box ----------------- */
@@ -350,56 +363,59 @@
     font-size: 16px;
   }
 
-  /* ----------------- Animated Falling "Happy Birthday" ----------------- */
+  /* ----------------- Surprising Pop-in & Falling "Happy Birthday" ----------------- */
   #bdayBanner {
     position: absolute;
-    top: -200px;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translate(-50%, -50%) scale(0);
     font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 64px;
+    font-size: 78px;
     font-weight: 900;
-    color: #ffde00;
+    color: #fffb00;
     text-shadow: 
-      3px 3px 0px #d92500,
-      -3px -3px 0px #0058ee,
-      4px 6px 12px rgba(0,0,0,0.85);
-    letter-spacing: 2px;
+      5px 5px 0px #ff003c,
+      -4px -4px 0px #0051ff,
+      0 0 25px rgba(255, 230, 0, 0.9),
+      6px 8px 20px rgba(0,0,0,0.9);
+    letter-spacing: 3px;
     white-space: nowrap;
     z-index: 100;
     pointer-events: none;
+    opacity: 0;
   }
 
-  @keyframes popAndFall {
+  /* Pop in instantly with a violent scale jump, pause, then fall to the bottom */
+  @keyframes surprisePopAndFall {
     0% {
-      top: 10%;
-      transform: translateX(-50%) scale(0.2);
+      top: 50%;
+      transform: translate(-50%, -50%) scale(0.05);
       opacity: 0;
     }
-    20% {
-      top: 35%;
-      transform: translateX(-50%) scale(1.15) rotate(-3deg);
-      opacity: 1;
-    }
-    35% {
-      top: 38%;
-      transform: translateX(-50%) scale(1) rotate(2deg);
-      opacity: 1;
-    }
-    70% {
+    12% {
       top: 48%;
-      transform: translateX(-50%) scale(1.05) rotate(0deg);
+      transform: translate(-50%, -50%) scale(1.35) rotate(-3deg);
+      opacity: 1;
+    }
+    20% {
+      top: 50%;
+      transform: translate(-50%, -50%) scale(1.05) rotate(2deg);
+      opacity: 1;
+    }
+    55% {
+      top: 50%;
+      transform: translate(-50%, -50%) scale(1.1) rotate(-1deg);
       opacity: 1;
     }
     100% {
-      top: 120vh;
-      transform: translateX(-50%) scale(0.9) rotate(8deg);
+      top: 125vh;
+      transform: translate(-50%, 0) scale(0.95) rotate(14deg);
       opacity: 0;
     }
   }
 
-  .animate-fall {
-    animation: popAndFall 3.8s cubic-bezier(0.25, 0.46, 0.45, 0.94) forwards;
+  .animate-surprise {
+    animation: surprisePopAndFall 3.6s cubic-bezier(0.2, 0.8, 0.25, 1) forwards;
   }
 
   /* Confetti Canvas */
@@ -486,11 +502,12 @@
   </div>
 
   <!-- Animated Falling Happy Birthday Text -->
-  <div id="bdayBanner">HAPPY BIRTHDAY! 🎉</div>
+  <div id="bdayBanner">HAPPY BIRTHDAY! 🎂🎉</div>
 </div>
 
 <script>
   // DOM References
+  const desktop = document.getElementById('desktop');
   const systemDialog = document.getElementById('systemDialog');
   const btnYes = document.getElementById('btnYes');
   const btnHellYes = document.getElementById('btnHellYes');
@@ -507,37 +524,58 @@
   const wmpCloseBtn = document.getElementById('wmpCloseBtn');
   const dialogCloseBtn = document.getElementById('dialogCloseBtn');
 
-  // Web Audio Context for Windows Retro Pop-up Sound
-  function playPopupSound() {
+  // Realistic Windows XP Ding/Chime Sound Synthesis
+  function playRealisticDing() {
     try {
-      const audioCtx = new (window.AudioContext || window.webkitAudioContext)();
-      const osc = audioCtx.createOscillator();
-      const gain = audioCtx.createGain();
+      const AudioCtx = window.AudioContext || window.webkitAudioContext;
+      const ctx = new AudioCtx();
+      const now = ctx.currentTime;
 
-      osc.type = 'sine';
-      osc.frequency.setValueAtTime(800, audioCtx.currentTime);
-      osc.frequency.exponentialRampToValueAtTime(400, audioCtx.currentTime + 0.15);
+      // Dual harmonics for authentic XP bell/ding
+      const osc1 = ctx.createOscillator();
+      const osc2 = ctx.createOscillator();
+      const gain1 = ctx.createGain();
+      const gain2 = ctx.createGain();
+      const filter = ctx.createBiquadFilter();
 
-      gain.gain.setValueAtTime(0.25, audioCtx.currentTime);
-      gain.gain.exponentialRampToValueAtTime(0.01, audioCtx.currentTime + 0.15);
+      // C6 & E6 dual chord tone
+      osc1.type = 'sine';
+      osc1.frequency.setValueAtTime(1046.5, now); // C6
+      osc2.type = 'triangle';
+      osc2.frequency.setValueAtTime(1318.5, now); // E6
 
-      osc.connect(gain);
-      gain.connect(audioCtx.destination);
+      filter.type = 'lowpass';
+      filter.frequency.setValueAtTime(2600, now);
 
-      osc.start();
-      osc.stop(audioCtx.currentTime + 0.15);
+      // Attack & warm decay envelope
+      gain1.gain.setValueAtTime(0.001, now);
+      gain1.gain.exponentialRampToValueAtTime(0.35, now + 0.02);
+      gain1.gain.exponentialRampToValueAtTime(0.0001, now + 0.95);
+
+      gain2.gain.setValueAtTime(0.001, now);
+      gain2.gain.exponentialRampToValueAtTime(0.18, now + 0.02);
+      gain2.gain.exponentialRampToValueAtTime(0.0001, now + 0.75);
+
+      osc1.connect(gain1);
+      osc2.connect(gain2);
+      gain1.connect(filter);
+      gain2.connect(filter);
+      filter.connect(ctx.destination);
+
+      osc1.start(now);
+      osc2.start(now);
+      osc1.stop(now + 1.0);
+      osc2.stop(now + 0.8);
     } catch (e) {
-      console.warn("AudioContext error:", e);
+      console.warn("AudioContext chime error:", e);
     }
   }
 
-  // Play sound on first user gesture or load
-  window.addEventListener('DOMContentLoaded', () => {
-    playPopupSound();
-  });
+  // Play sound on load & first gesture
+  window.addEventListener('DOMContentLoaded', () => playRealisticDing());
   window.addEventListener('click', () => {
     if (!systemDialog.classList.contains('hide')) {
-      playPopupSound();
+      playRealisticDing();
     }
   }, { once: true });
 
@@ -555,7 +593,8 @@
     video.currentTime = 0;
     pauseIndicator.classList.remove('visible');
     playAgainBtn.classList.remove('visible');
-    bdayBanner.classList.remove('animate-fall');
+    bdayBanner.classList.remove('animate-surprise');
+    desktop.classList.remove('screen-quake');
     wmpProgress.style.width = '0%';
     wmpStatus.innerText = 'Ready';
     wmpPlayPause.innerText = '▶';
@@ -569,10 +608,10 @@
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     confettiParticles = [];
 
-    playPopupSound();
+    playRealisticDing();
   }
 
-  // Close 'X' buttons click logic
+  // Close 'X' button returns to start
   wmpCloseBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     resetToBeginning();
@@ -582,29 +621,26 @@
     systemDialog.style.transform = 'translate(-4px, 0)';
     setTimeout(() => systemDialog.style.transform = 'translate(4px, 0)', 80);
     setTimeout(() => systemDialog.style.transform = 'translate(0, 0)', 160);
-    playPopupSound();
+    playRealisticDing();
   });
 
-  // Button Click Handler to Start Experience
+  // Start Experience
   function triggerStart(buttonElement) {
     buttonElement.classList.add('clicked');
-    
     setTimeout(() => {
       systemDialog.classList.add('hide');
       wmpWindow.classList.add('show');
       wmpStatus.innerText = 'Playing';
       wmpPlayPause.innerText = '❚❚';
       pauseIndicator.classList.remove('visible');
-      video.play().catch(e => {
-        console.warn('Playback error / Autoplay blocked:', e);
-      });
+      video.play().catch(e => console.warn('Autoplay error:', e));
     }, 280);
   }
 
   btnYes.addEventListener('click', () => triggerStart(btnYes));
   btnHellYes.addEventListener('click', () => triggerStart(btnHellYes));
 
-  // Toggle Play/Pause Logic
+  // Toggle Play/Pause
   function togglePlayPause() {
     if (video.ended) return;
     if (video.paused) {
@@ -623,7 +659,7 @@
   video.addEventListener('click', togglePlayPause);
   wmpPlayPause.addEventListener('click', togglePlayPause);
 
-  // Video Progress Update
+  // Timeline update
   video.addEventListener('timeupdate', () => {
     if (video.duration) {
       const percentage = (video.currentTime / video.duration) * 100;
@@ -631,31 +667,36 @@
     }
   });
 
-  // Video End Sequence
+  // End of Video: Sudden Surprising Pop-in
   video.addEventListener('ended', () => {
     wmpStatus.innerText = 'Finished';
     wmpPlayPause.innerText = '▶';
     pauseIndicator.classList.remove('visible');
 
-    // 1. Launch Confetti celebration
+    // Quake the entire screen for sudden surprise
+    desktop.classList.add('screen-quake');
+    setTimeout(() => desktop.classList.remove('screen-quake'), 500);
+
+    // Pop the banner
+    bdayBanner.classList.remove('animate-surprise');
+    void bdayBanner.offsetWidth;
+    bdayBanner.classList.add('animate-surprise');
+
+    // Burst of confetti
     startConfetti(4500);
 
-    // 2. Pop & Fall "Happy Birthday" text
-    bdayBanner.classList.remove('animate-fall');
-    void bdayBanner.offsetWidth;
-    bdayBanner.classList.add('animate-fall');
-
-    // 3. Reveal Replay symbol in center of WMP screen
+    // Show Replay button
     setTimeout(() => {
       playAgainBtn.classList.add('visible');
     }, 1800);
   });
 
-  // Replay Button restarts the video
+  // Replay
   playAgainBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     playAgainBtn.classList.remove('visible');
-    bdayBanner.classList.remove('animate-fall');
+    bdayBanner.classList.remove('animate-surprise');
+    desktop.classList.remove('screen-quake');
     wmpStatus.innerText = 'Playing';
     wmpPlayPause.innerText = '❚❚';
 
@@ -667,14 +708,14 @@
     video.play();
   });
 
-  // ----------------- Confetti Physics Generator -----------------
+  // Confetti Physics
   let confettiParticles = [];
   let confettiAnimFrame = null;
 
   function createConfetti() {
     const colors = ['#ff2a2a', '#ffd700', '#00e5ff', '#ff00ea', '#44ff44', '#ffffff', '#ff9100'];
     confettiParticles = [];
-    for (let i = 0; i < 180; i++) {
+    for (let i = 0; i < 200; i++) {
       confettiParticles.push({
         x: Math.random() * canvas.width,
         y: Math.random() * -canvas.height * 0.7,
@@ -694,27 +735,21 @@
 
     for (let p of confettiParticles) {
       p.y += p.speedY;
-      p.x += Math.sin(p.y * 0.02) * 2 + p.vx || (p.x += Math.sin(p.y * 0.02) * 2 + p.speedX);
+      p.x += Math.sin(p.y * 0.02) * 2 + p.speedX;
       p.rotation += p.rotationSpeed;
 
-      if (p.y < canvas.height + 20) {
-        alive = true;
-      }
+      if (p.y < canvas.height + 20) alive = true;
 
       ctx.save();
       ctx.translate(p.x, p.y);
-      ctx.rotate((p.rotation * Math.PI) / 180);
+      ctx.rotate((p.rot || p.rotation * Math.PI) / 180);
       ctx.fillStyle = p.color;
       ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
       ctx.restore();
     }
 
-    if (alive) {
-      confettiAnimFrame = requestAnimationFrame(renderConfetti);
-    } else {
-      ctx.clearRect(0, 0, canvas.width, canvas.height);
-      cancelAnimationFrame(confettiAnimFrame);
-    }
+    if (alive) confettiAnimFrame = requestAnimationFrame(renderConfetti);
+    else cancelAnimationFrame(confettiAnimFrame);
   }
 
   function startConfetti(durationMs) {
