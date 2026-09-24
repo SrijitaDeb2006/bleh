@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
 <title>Happy Birthday!</title>
 <style>
   /* Crisp pixel arrow cursor */
@@ -21,6 +21,7 @@
     user-select: none;
     -webkit-user-select: none;
     background: #0055ea url("211174977272346.jpeg") center center / cover no-repeat;
+    touch-action: manipulation;
   }
 
   /* Retro Overlay Container */
@@ -31,9 +32,10 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    padding: 12px;
   }
 
-  /* Screen shake effect on surprising pop */
+  /* Screen tremor on surprising pop */
   .screen-quake {
     animation: quake 0.45s cubic-bezier(0.36, 0.07, 0.19, 0.97) both;
   }
@@ -45,10 +47,11 @@
     40%, 60% { transform: translate3d(6px, -3px, 0); }
   }
 
-  /* ----------------- System Message Dialog Box ----------------- */
+  /* ----------------- System Message Dialog Box (Responsive) ----------------- */
   #systemDialog {
     position: absolute;
     width: 360px;
+    max-width: 90vw;
     background: #ece9d8;
     border: 3px solid #0055ea;
     border-radius: 4px;
@@ -88,10 +91,10 @@
   }
 
   .dialog-body {
-    padding: 24px 20px;
+    padding: 24px 16px;
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 19px;
+    font-size: clamp(17px, 4.5vw, 20px);
     font-weight: bold;
     color: #000;
   }
@@ -99,17 +102,16 @@
   .dialog-buttons {
     display: flex;
     justify-content: center;
-    gap: 24px;
-    padding-bottom: 20px;
+    gap: 16px;
+    padding: 0 12px 20px;
   }
 
-  /* Animated 3D Dialog Buttons */
   .retro-btn {
     background: #ece9d8;
     font-family: 'Courier New', Courier, monospace;
-    font-size: 15px;
+    font-size: clamp(13px, 3.5vw, 15px);
     font-weight: bold;
-    padding: 6px 20px;
+    padding: 8px 18px;
     border: 2px solid;
     border-color: #ffffff #808080 #808080 #ffffff;
     box-shadow: 1px 1px 0px #000000;
@@ -119,8 +121,6 @@
 
   .retro-btn:hover {
     background: #f5f4ec;
-    transform: translateY(-2px);
-    box-shadow: 2px 3px 0px #000000;
   }
 
   .retro-btn:active, .retro-btn.clicked {
@@ -129,10 +129,10 @@
     box-shadow: 0px 0px 0px #000000;
   }
 
-  /* ----------------- Windows Media Player (Fitted to 1:1 Video) ----------------- */
+  /* ----------------- Windows Media Player (Mobile & Desktop Fit) ----------------- */
   #wmpWindow {
-    width: 480px;
-    max-width: 90vw;
+    width: 440px;
+    max-width: 95vw;
     background: #0f2c59;
     border: 3px solid #1656b8;
     border-radius: 8px 8px 4px 4px;
@@ -181,9 +181,9 @@
 
   .wmp-controls-icons span {
     display: inline-block;
-    width: 17px;
-    height: 17px;
-    line-height: 15px;
+    width: 18px;
+    height: 18px;
+    line-height: 16px;
     text-align: center;
     margin-left: 3px;
     background: linear-gradient(180deg, #3784ff 0%, #1653c0 100%);
@@ -194,7 +194,6 @@
 
   .wmp-controls-icons span#wmpCloseBtn {
     background: #c93322;
-    transition: background 0.1s ease;
   }
 
   .wmp-controls-icons span#wmpCloseBtn:hover {
@@ -204,18 +203,20 @@
   .wmp-menu {
     background: #ece9d8;
     color: #000;
-    font-size: 12px;
+    font-size: 11px;
     padding: 3px 8px;
     display: flex;
-    gap: 14px;
+    gap: 10px;
     border-bottom: 1px solid #a0a0a0;
+    overflow-x: auto;
+    white-space: nowrap;
   }
 
   .wmp-menu span {
     text-decoration: underline;
   }
 
-  /* Video Screen Container - Fitted 1:1 Aspect Ratio */
+  /* 1:1 Video Area */
   .wmp-screen {
     position: relative;
     width: 100%;
@@ -241,13 +242,13 @@
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    background: rgba(0, 0, 0, 0.75);
+    background: rgba(0, 0, 0, 0.8);
     border: 2px solid #507cc0;
     color: #ffd700;
     font-family: 'Courier New', monospace;
-    font-size: 18px;
+    font-size: 16px;
     font-weight: bold;
-    padding: 10px 20px;
+    padding: 8px 18px;
     border-radius: 4px;
     display: none;
     pointer-events: none;
@@ -316,7 +317,7 @@
 
   .wmp-footer {
     background: linear-gradient(180deg, #2a5eb2 0%, #153c82 50%, #0d285c 100%);
-    padding: 8px 12px 10px;
+    padding: 6px 10px 8px;
     border-top: 1px solid #5b8be0;
   }
 
@@ -340,10 +341,9 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 12px;
+    gap: 10px;
   }
 
-  /* Equal sizing for all 4 control buttons */
   .round-btn, .round-btn.main-play {
     width: 32px;
     height: 32px;
@@ -358,22 +358,23 @@
     box-shadow: 0 2px 4px rgba(0,0,0,0.5);
   }
 
-  /* ----------------- Surprising Pop-in & Falling "Happy Birthday" ----------------- */
+  /* ----------------- Surprising Falling "Happy Birthday" ----------------- */
   #bdayBanner {
     position: absolute;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: 72px;
+    font-size: clamp(38px, 8vw, 68px);
     font-weight: 900;
     color: #fffb00;
     text-shadow: 
-      5px 5px 0px #ff003c,
-      -4px -4px 0px #0051ff,
-      0 0 25px rgba(255, 230, 0, 0.9),
-      6px 8px 20px rgba(0,0,0,0.9);
-    letter-spacing: 3px;
+      4px 4px 0px #ff003c,
+      -3px -3px 0px #0051ff,
+      0 0 20px rgba(255, 230, 0, 0.9),
+      5px 7px 16px rgba(0,0,0,0.9);
+    letter-spacing: 2px;
+    text-align: center;
     white-space: nowrap;
     z-index: 100;
     pointer-events: none;
@@ -388,7 +389,7 @@
     }
     12% {
       top: 48%;
-      transform: translate(-50%, -50%) scale(1.35) rotate(-3deg);
+      transform: translate(-50%, -50%) scale(1.3) rotate(-3deg);
       opacity: 1;
     }
     20% {
@@ -468,13 +469,13 @@
       <!-- Pause Effect Badge -->
       <div id="pauseIndicator">❚❚ PAUSED</div>
 
-      <!-- Fitted Video Source -->
+      <!-- Video Element -->
       <video id="birthdayVideo" playsinline preload="auto">
         <source src="pigeon.mp4" type="video/mp4">
         Your browser does not support video playback.
       </video>
 
-      <!-- Replay Button (Symbol Only) -->
+      <!-- Replay Button (Returns to System Message) -->
       <div id="playAgainBtn" title="Replay">
         <span class="replay-symbol">↺</span>
       </div>
@@ -500,7 +501,6 @@
 </div>
 
 <script>
-  // DOM References
   const desktop = document.getElementById('desktop');
   const systemDialog = document.getElementById('systemDialog');
   const btnYes = document.getElementById('btnYes');
@@ -522,14 +522,14 @@
   function playRealisticDing() {
     try {
       const AudioCtx = window.AudioContext || window.webkitAudioContext;
-      const ctx = new AudioCtx();
-      const now = ctx.currentTime;
+      const actx = new AudioCtx();
+      const now = actx.currentTime;
 
-      const osc1 = ctx.createOscillator();
-      const osc2 = ctx.createOscillator();
-      const gain1 = ctx.createGain();
-      const gain2 = ctx.createGain();
-      const filter = ctx.createBiquadFilter();
+      const osc1 = actx.createOscillator();
+      const osc2 = actx.createOscillator();
+      const gain1 = actx.createGain();
+      const gain2 = actx.createGain();
+      const filter = actx.createBiquadFilter();
 
       osc1.type = 'sine';
       osc1.frequency.setValueAtTime(1046.5, now); // C6
@@ -551,18 +551,18 @@
       osc2.connect(gain2);
       gain1.connect(filter);
       gain2.connect(filter);
-      filter.connect(ctx.destination);
+      filter.connect(actx.destination);
 
       osc1.start(now);
       osc2.start(now);
       osc1.stop(now + 1.0);
       osc2.stop(now + 0.8);
     } catch (e) {
-      console.warn("AudioContext chime error:", e);
+      console.warn("AudioContext error:", e);
     }
   }
 
-  // Play sound on load & first gesture
+  // Audio trigger
   window.addEventListener('DOMContentLoaded', () => playRealisticDing());
   window.addEventListener('click', () => {
     if (!systemDialog.classList.contains('hide')) {
@@ -570,7 +570,7 @@
     }
   }, { once: true });
 
-  // Resize Confetti Canvas
+  // Confetti Canvas Auto-resize
   function resizeCanvas() {
     canvas.width = window.innerWidth;
     canvas.height = window.innerHeight;
@@ -578,7 +578,7 @@
   window.addEventListener('resize', resizeCanvas);
   resizeCanvas();
 
-  // Reset to Beginning
+  // Reset function to return to System Message Window
   function resetToBeginning() {
     video.pause();
     video.currentTime = 0;
@@ -602,7 +602,7 @@
     playRealisticDing();
   }
 
-  // Close 'X' button returns to start
+  // Close buttons logic
   wmpCloseBtn.addEventListener('click', (e) => {
     e.stopPropagation();
     resetToBeginning();
@@ -624,7 +624,7 @@
       wmpStatus.innerText = 'Playing';
       wmpPlayPause.innerText = '❚❚';
       pauseIndicator.classList.remove('visible');
-      video.play().catch(e => console.warn('Autoplay error:', e));
+      video.play().catch(e => console.warn('Playback error:', e));
     }, 280);
   }
 
@@ -650,7 +650,7 @@
   video.addEventListener('click', togglePlayPause);
   wmpPlayPause.addEventListener('click', togglePlayPause);
 
-  // Timeline update
+  // Timeline
   video.addEventListener('timeupdate', () => {
     if (video.duration) {
       const percentage = (video.currentTime / video.duration) * 100;
@@ -658,45 +658,34 @@
     }
   });
 
-  // End of Video: Surprise Pop-in
+  // End of video sequence
   video.addEventListener('ended', () => {
     wmpStatus.innerText = 'Finished';
     wmpPlayPause.innerText = '▶';
     pauseIndicator.classList.remove('visible');
 
-    // Quake the entire screen
+    // Quake effect
     desktop.classList.add('screen-quake');
     setTimeout(() => desktop.classList.remove('screen-quake'), 500);
 
-    // Pop the banner
+    // Pop and drop banner
     bdayBanner.classList.remove('animate-surprise');
     void bdayBanner.offsetWidth;
     bdayBanner.classList.add('animate-surprise');
 
-    // Burst of confetti
+    // Confetti
     startConfetti(4500);
 
-    // Show Replay button
+    // Reveal Replay Button
     setTimeout(() => {
       playAgainBtn.classList.add('visible');
     }, 1800);
   });
 
-  // Replay
+  // Replay Button takes user back to the System Message window
   playAgainBtn.addEventListener('click', (e) => {
     e.stopPropagation();
-    playAgainBtn.classList.remove('visible');
-    bdayBanner.classList.remove('animate-surprise');
-    desktop.classList.remove('screen-quake');
-    wmpStatus.innerText = 'Playing';
-    wmpPlayPause.innerText = '❚❚';
-
-    if (confettiAnimFrame) cancelAnimationFrame(confettiAnimFrame);
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    confettiParticles = [];
-
-    video.currentTime = 0;
-    video.play();
+    resetToBeginning();
   });
 
   // Confetti Physics
@@ -735,7 +724,7 @@
 
       ctx.save();
       ctx.translate(p.x, p.y);
-      ctx.rotate((p.rot || p.rotation * Math.PI) / 180);
+      ctx.rotate((p.rotation * Math.PI) / 180);
       ctx.fillStyle = p.color;
       ctx.fillRect(-p.size / 2, -p.size / 2, p.size, p.size * 0.6);
       ctx.restore();
