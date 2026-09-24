@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Happy Birthday!</title>
 <style>
-  /* Use your uploaded cursor image */
+  /* Crisp, authentic Windows XP pixel arrow pointer with exact (0,0) hotspot */
   *, *::before, *::after {
-    cursor: url("2674081025828006.jpeg") 0 0, auto !important;
+    cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32' viewBox='0 0 32 32' shape-rendering='crispEdges'%3E%3Cpath d='M0 0v24l6-6 4 9 4-2-4-9h8L0 0z' fill='%23ffffff' stroke='%23000000' stroke-width='2' stroke-linejoin='miter'/%3E%3C/svg%3E") 0 0, auto !important;
     box-sizing: border-box;
   }
 
@@ -20,7 +20,7 @@
     font-family: "Tahoma", "MS Sans Serif", sans-serif;
     user-select: none;
     -webkit-user-select: none;
-    /* Use your uploaded Bliss background image */
+    /* Bliss Wallpaper Background */
     background: #0055ea url("211174977272346.jpeg") center center / cover no-repeat;
   }
 
@@ -72,6 +72,8 @@
     font-size: 11px;
     text-align: center;
     border-radius: 2px;
+    font-weight: bold;
+    cursor: pointer !important;
   }
 
   .dialog-content {
@@ -115,7 +117,7 @@
     box-shadow: 0px 0px 0px #000000;
   }
 
-  /* ---------------- Windows Media Player Frame ---------------- */
+  /* ---------------- Seamless Video Window ---------------- */
   #wmpContainer {
     position: relative;
     width: 580px;
@@ -125,6 +127,10 @@
     transform: scale(0.94);
     transition: opacity 0.3s ease, transform 0.3s ease;
     z-index: 20;
+    border-radius: 6px;
+    overflow: hidden;
+    box-shadow: 0 16px 44px rgba(0, 0, 0, 0.65);
+    background: #000;
   }
 
   #wmpContainer.active {
@@ -133,63 +139,95 @@
     transform: scale(1);
   }
 
-  /* Your uploaded WMP skin image */
-  .wmp-frame-img {
-    width: 100%;
-    display: block;
-    pointer-events: none;
-  }
-
-  /* Video positioned inside the white screen area of the WMP frame */
-  .wmp-screen-slot {
-    position: absolute;
-    top: 20.5%;
-    left: 2.2%;
-    width: 95.6%;
-    height: 60.5%;
-    background: #000;
-    overflow: hidden;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-  }
-
   video {
     width: 100%;
-    height: 100%;
-    object-fit: contain;
+    display: block;
+    cursor: pointer !important;
   }
 
-  /* Play Again overlay button */
-  #playAgain {
+  /* Clickable "X" mapped directly over the player's close box */
+  #playerCloseX {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%) scale(0.8);
-    background: #ffffff;
-    border: 3px solid #000;
-    padding: 10px 14px;
-    box-shadow: 0 6px 18px rgba(0,0,0,0.6);
-    display: none;
-    opacity: 0;
-    transition: opacity 0.25s ease, transform 0.15s ease;
-    z-index: 40;
+    top: 3px;
+    right: 3px;
+    width: 24px;
+    height: 22px;
+    background: transparent;
+    border-radius: 2px;
+    z-index: 35;
+    cursor: pointer !important;
   }
 
-  #playAgain.visible {
+  #playerCloseX:hover {
+    background: rgba(255, 255, 255, 0.2);
+  }
+
+  /* Pause Badge Overlay */
+  #pauseBadge {
+    position: absolute;
+    top: 14px;
+    left: 14px;
+    background: rgba(0, 0, 0, 0.75);
+    border: 1px solid #5588cc;
+    color: #ffd700;
+    font-size: 12px;
+    padding: 3px 10px;
+    border-radius: 3px;
+    font-weight: bold;
+    pointer-events: none;
+    display: none;
+    z-index: 30;
+  }
+
+  #pauseBadge.visible {
+    display: block;
+  }
+
+  /* Retro Replay Button */
+  #replayBtn {
+    position: absolute;
+    top: 48%;
+    left: 50%;
+    transform: translate(-50%, -50%) scale(0.85);
+    background: #ece9d8;
+    border: 3px solid;
+    border-color: #ffffff #808080 #808080 #ffffff;
+    box-shadow: 2px 3px 14px rgba(0,0,0,0.75);
+    padding: 10px 24px;
+    display: none;
+    align-items: center;
+    gap: 10px;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 18px;
+    font-weight: bold;
+    color: #000;
+    opacity: 0;
+    transition: opacity 0.25s ease, transform 0.15s ease, background 0.15s ease;
+    z-index: 40;
+    cursor: pointer !important;
+  }
+
+  #replayBtn.visible {
     display: flex;
     opacity: 1;
     transform: translate(-50%, -50%) scale(1);
   }
 
-  #playAgain:hover {
-    transform: translate(-50%, -50%) scale(1.1);
+  #replayBtn:hover {
+    transform: translate(-50%, -50%) scale(1.08);
+    background: #f7f6f0;
   }
 
-  .pixel-icon {
-    width: 36px;
-    height: 36px;
-    display: block;
+  #replayBtn:active {
+    border-color: #808080 #ffffff #ffffff #808080;
+    transform: translate(-50%, -50%) scale(0.96);
+  }
+
+  .replay-icon {
+    font-size: 22px;
+    line-height: 1;
+    transform: rotate(-45deg);
+    display: inline-block;
   }
 
   /* ---------------- Falling Birthday Text ---------------- */
@@ -240,7 +278,7 @@
   <div id="sysDialog">
     <div class="dialog-title">
       <span>System message</span>
-      <div class="dialog-close">✕</div>
+      <div class="dialog-close" id="dialogCloseBtn" title="Close">✕</div>
     </div>
     <div class="dialog-content">
       Is it your birthday?
@@ -251,14 +289,18 @@
     </div>
   </div>
 
-  <!-- Windows Media Player Container with your uploaded frame -->
+  <!-- Seamless Player Window -->
   <div id="wmpContainer">
-    <img class="wmp-frame-img" src="83316661855639862-Photoroom.png" alt="WMP Frame">
-    <div class="wmp-screen-slot">
-      <video id="vid" src="Video Project 239.mp4" playsinline preload="auto"></video>
-      <div id="playAgain" title="Play Again">
-        <img src="play.jpg" class="pixel-icon" alt="Play Again">
-      </div>
+    <!-- Clickable "X" mapped over the video's upper-right close icon -->
+    <div id="playerCloseX" title="Exit & Return"></div>
+    
+    <div id="pauseBadge">❚❚ PAUSED</div>
+    <video id="vid" src="Video Project 239.mp4" playsinline preload="auto"></video>
+
+    <!-- Retro Replay Button -->
+    <div id="replayBtn" title="Replay">
+      <span class="replay-icon">↺</span>
+      <span>Replay</span>
     </div>
   </div>
 
@@ -271,8 +313,11 @@
   const wmpContainer = document.getElementById('wmpContainer');
   const btn1 = document.getElementById('btn1');
   const btn2 = document.getElementById('btn2');
-  const playAgain = document.getElementById('playAgain');
+  const replayBtn = document.getElementById('replayBtn');
   const bdayText = document.getElementById('bdayText');
+  const playerCloseX = document.getElementById('playerCloseX');
+  const dialogCloseBtn = document.getElementById('dialogCloseBtn');
+  const pauseBadge = document.getElementById('pauseBadge');
 
   // Confetti setup
   const canvas = document.getElementById('confettiCanvas');
@@ -281,19 +326,62 @@
   window.addEventListener('resize', resize);
   resize();
 
+  function resetToBeginning() {
+    vid.pause();
+    vid.currentTime = 0;
+    pauseBadge.classList.remove('visible');
+    replayBtn.classList.remove('visible');
+    bdayText.classList.remove('animate-drop');
+    wmpContainer.classList.remove('active');
+    btn1.classList.remove('pressed');
+    btn2.classList.remove('pressed');
+    sysDialog.classList.remove('hidden');
+    stopConfetti();
+  }
+
+  // Dialog "X" button shake
+  dialogCloseBtn.addEventListener('click', () => {
+    sysDialog.style.transform = 'translate(-4px, 0)';
+    setTimeout(() => sysDialog.style.transform = 'translate(4px, 0)', 80);
+    setTimeout(() => sysDialog.style.transform = 'translate(0, 0)', 160);
+  });
+
+  // Player "X" button cuts video and returns to dialog
+  playerCloseX.addEventListener('click', (e) => {
+    e.stopPropagation();
+    resetToBeginning();
+  });
+
   function triggerOpen(btn) {
     btn.classList.add('pressed');
     setTimeout(() => {
       sysDialog.classList.add('hidden');
       wmpContainer.classList.add('active');
+      replayBtn.classList.remove('visible');
+      pauseBadge.classList.remove('visible');
+      vid.currentTime = 0;
       vid.play().catch(e => console.warn("Playback error:", e));
-    }, 250);
+    }, 240);
   }
 
   btn1.addEventListener('click', () => triggerOpen(btn1));
   btn2.addEventListener('click', () => triggerOpen(btn2));
 
+  // Toggle Pause/Play anywhere on the video screen
+  vid.addEventListener('click', () => {
+    if (vid.ended) return;
+    if (vid.paused) {
+      vid.play();
+      pauseBadge.classList.remove('visible');
+    } else {
+      vid.pause();
+      pauseBadge.classList.add('visible');
+    }
+  });
+
+  // End of video sequence
   vid.addEventListener('ended', () => {
+    pauseBadge.classList.remove('visible');
     startConfetti();
     
     bdayText.classList.remove('animate-drop');
@@ -301,25 +389,24 @@
     bdayText.classList.add('animate-drop');
 
     setTimeout(() => {
-      playAgain.classList.add('visible');
+      replayBtn.classList.add('visible');
     }, 1500);
   });
 
-  playAgain.addEventListener('click', () => {
-    playAgain.classList.remove('visible');
+  // Replay restart
+  replayBtn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    replayBtn.classList.remove('visible');
     bdayText.classList.remove('animate-drop');
-    wmpContainer.classList.remove('active');
-
-    vid.pause();
+    stopConfetti();
     vid.currentTime = 0;
-
-    btn1.classList.remove('pressed');
-    btn2.classList.remove('pressed');
-    sysDialog.classList.remove('hidden');
+    vid.play();
   });
 
   // Confetti engine
   let particles = [];
+  let confettiAnim = null;
+
   function startConfetti() {
     const cols = ['#ff2a2a', '#ffd700', '#00e5ff', '#ff00ea', '#44ff44', '#ffffff', '#ff9100'];
     particles = [];
@@ -335,7 +422,14 @@
         c: cols[Math.floor(Math.random() * cols.length)]
       });
     }
+    if (confettiAnim) cancelAnimationFrame(confettiAnim);
     renderConfetti();
+  }
+
+  function stopConfetti() {
+    if (confettiAnim) cancelAnimationFrame(confettiAnim);
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+    particles = [];
   }
 
   function renderConfetti() {
@@ -354,8 +448,8 @@
       ctx.fillRect(-p.s / 2, -p.s / 2, p.s, p.s * 0.6);
       ctx.restore();
     }
-    if (active) requestAnimationFrame(renderConfetti);
-    else ctx.clearRect(0, 0, canvas.width, canvas.height);
+    if (active) confettiAnim = requestAnimationFrame(renderConfetti);
+    else stopConfetti();
   }
 </script>
 </body>
