@@ -47,15 +47,14 @@
     40%, 60% { transform: translate3d(6px, -3px, 0); }
   }
 
-  /* ----------------- System Message Dialog Box (Responsive) ----------------- */
+  /* ----------------- System Message Dialog Box (Large & Prominent on Mobile) ----------------- */
   #systemDialog {
     position: absolute;
-    width: 360px;
-    max-width: 90vw;
+    width: min(88vw, 420px);
     background: #ece9d8;
     border: 3px solid #0055ea;
     border-radius: 4px;
-    box-shadow: 4px 6px 16px rgba(0, 0, 0, 0.45);
+    box-shadow: 4px 6px 20px rgba(0, 0, 0, 0.55);
     z-index: 50;
     transition: transform 0.25s cubic-bezier(0.175, 0.885, 0.32, 1.275), opacity 0.2s ease;
   }
@@ -69,9 +68,9 @@
   .dialog-titlebar {
     background: linear-gradient(90deg, #0058ee 0%, #3593ff 70%, #2876e2 100%);
     color: white;
-    font-size: 13px;
+    font-size: clamp(14px, 4vw, 15px);
     font-weight: bold;
-    padding: 4px 8px;
+    padding: 6px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -81,20 +80,20 @@
     background: #d93829;
     color: white;
     border: 1px solid #fff;
-    width: 17px;
-    height: 17px;
-    line-height: 13px;
-    font-size: 11px;
+    width: 20px;
+    height: 20px;
+    line-height: 16px;
+    font-size: 13px;
     text-align: center;
     border-radius: 2px;
     font-weight: bold;
   }
 
   .dialog-body {
-    padding: 24px 16px;
+    padding: clamp(28px, 6vh, 40px) 20px clamp(24px, 5vh, 32px);
     text-align: center;
     font-family: 'Courier New', Courier, monospace;
-    font-size: clamp(17px, 4.5vw, 20px);
+    font-size: clamp(20px, 5.5vw, 24px);
     font-weight: bold;
     color: #000;
   }
@@ -102,16 +101,16 @@
   .dialog-buttons {
     display: flex;
     justify-content: center;
-    gap: 16px;
-    padding: 0 12px 20px;
+    gap: 20px;
+    padding: 0 16px clamp(22px, 5vh, 32px);
   }
 
   .retro-btn {
     background: #ece9d8;
     font-family: 'Courier New', Courier, monospace;
-    font-size: clamp(13px, 3.5vw, 15px);
+    font-size: clamp(16px, 4.5vw, 18px);
     font-weight: bold;
-    padding: 8px 18px;
+    padding: 10px 24px;
     border: 2px solid;
     border-color: #ffffff #808080 #808080 #ffffff;
     box-shadow: 1px 1px 0px #000000;
@@ -129,14 +128,13 @@
     box-shadow: 0px 0px 0px #000000;
   }
 
-  /* ----------------- Windows Media Player (Mobile & Desktop Fit) ----------------- */
+  /* ----------------- Windows Media Player (Covers >= 65% on Phone) ----------------- */
   #wmpWindow {
-    width: 440px;
-    max-width: 95vw;
+    width: min(88vw, 68vh, 520px);
     background: #0f2c59;
     border: 3px solid #1656b8;
     border-radius: 8px 8px 4px 4px;
-    box-shadow: 0 14px 38px rgba(0, 0, 0, 0.65);
+    box-shadow: 0 14px 40px rgba(0, 0, 0, 0.7);
     overflow: hidden;
     position: relative;
     z-index: 10;
@@ -155,9 +153,9 @@
   .wmp-titlebar {
     background: linear-gradient(180deg, #0947ba 0%, #195ed8 45%, #0d3da5 50%, #1555c8 100%);
     color: white;
-    font-size: 13px;
+    font-size: clamp(13px, 3.8vw, 14px);
     font-weight: bold;
-    padding: 6px 10px;
+    padding: 7px 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -172,8 +170,8 @@
   }
 
   .wmp-title-logo {
-    width: 17px;
-    height: 17px;
+    width: 18px;
+    height: 18px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, #ff9800, #e65100, #3e2723);
     border: 1px solid #fff;
@@ -181,15 +179,15 @@
 
   .wmp-controls-icons span {
     display: inline-block;
-    width: 18px;
-    height: 18px;
-    line-height: 16px;
+    width: 20px;
+    height: 20px;
+    line-height: 18px;
     text-align: center;
     margin-left: 3px;
     background: linear-gradient(180deg, #3784ff 0%, #1653c0 100%);
     border: 1px solid #ffffffa1;
     border-radius: 2px;
-    font-size: 10px;
+    font-size: 11px;
   }
 
   .wmp-controls-icons span#wmpCloseBtn {
@@ -203,10 +201,10 @@
   .wmp-menu {
     background: #ece9d8;
     color: #000;
-    font-size: 11px;
-    padding: 3px 8px;
+    font-size: 12px;
+    padding: 4px 8px;
     display: flex;
-    gap: 10px;
+    gap: 12px;
     border-bottom: 1px solid #a0a0a0;
     overflow-x: auto;
     white-space: nowrap;
@@ -246,9 +244,9 @@
     border: 2px solid #507cc0;
     color: #ffd700;
     font-family: 'Courier New', monospace;
-    font-size: 16px;
+    font-size: clamp(16px, 4.5vw, 18px);
     font-weight: bold;
-    padding: 8px 18px;
+    padding: 10px 22px;
     border-radius: 4px;
     display: none;
     pointer-events: none;
@@ -271,8 +269,8 @@
     border: 3px solid;
     border-color: #ffffff #808080 #808080 #ffffff;
     box-shadow: 1px 1px 0px #000000, 0 6px 20px rgba(0,0,0,0.6);
-    width: 58px;
-    height: 58px;
+    width: 64px;
+    height: 64px;
     display: none;
     align-items: center;
     justify-content: center;
@@ -298,7 +296,7 @@
   }
 
   .replay-symbol {
-    font-size: 32px;
+    font-size: 36px;
     font-weight: bold;
     color: #000;
     line-height: 1;
@@ -310,14 +308,14 @@
   .wmp-status {
     background: #0a1b38;
     color: #79a6d2;
-    padding: 3px 10px;
+    padding: 4px 10px;
     font-size: 11px;
     border-top: 1px solid #1c3c74;
   }
 
   .wmp-footer {
     background: linear-gradient(180deg, #2a5eb2 0%, #153c82 50%, #0d285c 100%);
-    padding: 6px 10px 8px;
+    padding: 8px 12px 10px;
     border-top: 1px solid #5b8be0;
   }
 
@@ -341,17 +339,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 10px;
+    gap: 12px;
   }
 
   .round-btn, .round-btn.main-play {
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     border-radius: 50%;
     background: radial-gradient(circle at 35% 35%, #468bfb, #1245a8);
     border: 1.5px solid #a3c7ff;
     color: white;
-    font-size: 13px;
+    font-size: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -365,7 +363,7 @@
     left: 50%;
     transform: translate(-50%, -50%) scale(0);
     font-family: 'Impact', 'Arial Black', sans-serif;
-    font-size: clamp(38px, 8vw, 68px);
+    font-size: clamp(40px, 9vw, 76px);
     font-weight: 900;
     color: #fffb00;
     text-shadow: 
